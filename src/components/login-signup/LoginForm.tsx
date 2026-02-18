@@ -53,7 +53,10 @@ export function LoginForm({
           placeholder="you@firm.com"
           autoComplete="email"
           {...register('email')}
-          className={cn(errors.email && 'border-destructive')}
+          className={cn(
+            'transition-all duration-200 focus-visible:border-primary',
+            errors.email && 'border-destructive focus-visible:ring-destructive'
+          )}
           aria-invalid={!!errors.email}
           aria-describedby={errors.email ? 'login-email-error' : undefined}
         />
@@ -70,7 +73,10 @@ export function LoginForm({
           type="password"
           autoComplete="current-password"
           {...register('password')}
-          className={cn(errors.password && 'border-destructive')}
+          className={cn(
+            'transition-all duration-200 focus-visible:border-primary',
+            errors.password && 'border-destructive focus-visible:ring-destructive'
+          )}
           aria-invalid={!!errors.password}
           aria-describedby={errors.password ? 'login-password-error' : undefined}
         />
@@ -99,8 +105,9 @@ export function LoginForm({
       </div>
       <Button
         type="submit"
-        className="w-full transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+        className="w-full transition-all duration-200 hover:scale-[1.02] hover:shadow-card-hover active:scale-[0.98]"
         disabled={isSubmitting}
+        aria-busy={isSubmitting}
       >
         {isSubmitting ? 'Signing in…' : 'Sign in'}
       </Button>

@@ -36,7 +36,7 @@ export function ClientInviteFlowLink({
   return (
     <Card
       className={cn(
-        'animate-fade-in-up transition-shadow duration-300 hover:shadow-card-hover',
+        'animate-fade-in-up border-border/80 bg-card/95 transition-all duration-300 hover:shadow-card-hover hover:border-primary/20',
         className
       )}
     >
@@ -51,7 +51,7 @@ export function ClientInviteFlowLink({
           <Button
             type="button"
             variant="outline"
-            className="w-full transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+            className="w-full transition-all duration-200 hover:scale-[1.02] hover:shadow-card active:scale-[0.98]"
             onClick={() => setExpanded(true)}
           >
             Enter invite token

@@ -15,16 +15,18 @@ export function AuthHeader({ className }: AuthHeaderProps) {
     >
       <Link
         to="/"
-        className="text-xl font-semibold text-primary transition-colors hover:text-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
-        aria-label="Choose & Build - Back to home"
+        className="flex items-center gap-2 text-xl font-semibold transition-all duration-200 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
+        aria-label="Choose & Build - Home"
       >
-        Choose & Build
+        <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          Choose & Build
+        </span>
       </Link>
       <Link
         to="/"
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
+        className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm min-h-[44px] min-w-[44px] inline-flex items-center justify-center"
       >
-        Landing
+        Landing Page
       </Link>
     </header>
   )

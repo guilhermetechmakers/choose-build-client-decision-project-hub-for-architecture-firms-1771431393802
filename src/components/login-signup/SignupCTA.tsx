@@ -47,12 +47,14 @@ export function SignupCTA({ onSubmit, className }: SignupCTAProps) {
   return (
     <Card
       className={cn(
-        'animate-fade-in-up transition-shadow duration-300 hover:shadow-card-hover',
+        'animate-fade-in-up border-border/80 bg-card/95 transition-all duration-300 hover:shadow-card-hover hover:border-primary/20',
         className
       )}
     >
       <CardHeader className="pb-2">
-        <CardTitle className="text-lg">New to Choose & Build?</CardTitle>
+        <CardTitle className="text-lg">
+          New to Choose & Build?
+        </CardTitle>
         <CardDescription>
           Start your firm sign-up with company name and admin contact.
         </CardDescription>
@@ -62,7 +64,7 @@ export function SignupCTA({ onSubmit, className }: SignupCTAProps) {
           <Button
             type="button"
             variant="secondary"
-            className="w-full transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+            className="w-full transition-all duration-200 hover:scale-[1.02] hover:shadow-card active:scale-[0.98]"
             onClick={() => setExpanded(true)}
           >
             Firm sign-up

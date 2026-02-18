@@ -15,19 +15,19 @@ export function AuthFooter({ className }: AuthFooterProps) {
     >
       <Link
         to="/terms"
-        className="transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
+        className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-2 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
       >
         Terms
       </Link>
       <Link
         to="/privacy"
-        className="transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
+        className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-2 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
       >
         Privacy
       </Link>
       <Link
         to="/help"
-        className="transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
+        className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-2 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
       >
         Help
       </Link>
