@@ -26,9 +26,11 @@ import { ErrorPage } from '@/pages/error'
 import { Help } from '@/pages/help'
 import { Privacy } from '@/pages/privacy'
 import { Terms } from '@/pages/terms'
+import LoginSignupPage from '@/pages/Login/Signup'
 
 export const router = createBrowserRouter([
   { path: '/', element: <Landing /> },
+  { path: '/login-/-signup', element: <LoginSignupPage /> },
   { path: '/login', element: <Login /> },
   { path: '/signup', element: <Signup /> },
   { path: '/forgot-password', element: <ForgotPassword /> },

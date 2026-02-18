@@ -1,58 +1,85 @@
-const API_BASE = import.meta.env.VITE_API_URL ?? '/api'
+/**
+ * Fetch-based API client. Use for REST endpoints.
+ * When Supabase is configured, use supabase client for DB/Auth/Realtime/Storage
+ * and Edge Functions for server-only logic (e.g. LLM, secrets).
+ */
 
-export interface ApiError {
-  message: string
-  code?: string
-  status?: number
-}
-
-async function getToken(): Promise<string | null> {
-  return localStorage.getItem('access_token')
-}
-
-export async function api<T>(
-  path: string,
+async function apiRequest<T>(
+  endpoint: string,
   options: RequestInit = {}
 ): Promise<T> {
-  const token = await getToken()
+  const base =
+    import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
+  const url = `${base}${endpoint}`
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
-    ...options.headers,
+    ...(options.headers as Record<string, string>),
   }
+  const token = localStorage.getItem('auth_token') ?? localStorage.getItem('access_token')
   if (token) {
     (headers as Record<string, string>)['Authorization'] = `Bearer ${token}`
   }
 
-  const res = await fetch(`${API_BASE}${path}`, {
-    ...options,
-    headers,
-  })
-
+  const res = await fetch(url, { ...options, headers })
   if (!res.ok) {
-    const err: ApiError = {
-      message: (await res.json().catch(() => ({})))?.message ?? res.statusText,
-      status: res.status,
-    }
     if (res.status === 401) {
+      localStorage.removeItem('auth_token')
       localStorage.removeItem('access_token')
-      localStorage.removeItem('refresh_token')
+      window.location.href = '/login-/-signup'
     }
-    throw err
+    throw new Error(`API Error: ${res.status}`)
   }
-
-  const contentType = res.headers.get('content-type')
-  if (contentType?.includes('application/json')) {
-    return res.json() as Promise<T>
-  }
-  return res.text() as Promise<T>
+  return res.json()
 }
 
-export const apiGet = <T>(path: string) => api<T>(path, { method: 'GET' })
-export const apiPost = <T>(path: string, body?: unknown) =>
-  api<T>(path, { method: 'POST', body: body ? JSON.stringify(body) : undefined })
-export const apiPut = <T>(path: string, body?: unknown) =>
-  api<T>(path, { method: 'PUT', body: body ? JSON.stringify(body) : undefined })
-export const apiPatch = <T>(path: string, body?: unknown) =>
-  api<T>(path, { method: 'PATCH', body: body ? JSON.stringify(body) : undefined })
-export const apiDelete = <T>(path: string) =>
-  api<T>(path, { method: 'DELETE' })
+export const api = {
+  get: <T>(endpoint: string) => apiRequest<T>(endpoint),
+  post: <T>(endpoint: string, data: unknown) =>
+    apiRequest<T>(endpoint, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
+  put: <T>(endpoint: string, data: unknown) =>
+    apiRequest<T>(endpoint, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    }),
+  patch: <T>(endpoint: string, data: unknown) =>
+    apiRequest<T>(endpoint, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    }),
+  delete: <T>(endpoint: string) =>
+    apiRequest<T>(endpoint, { method: 'DELETE' }),
+}
+
+export interface ApiResponse<T> {
+  data: T | null
+  error: string | null
+}
+
+export interface PaginatedResponse<T> {
+  data: T[]
+  count: number
+  page: number
+  limit: number
+}
+
+export interface ApiErrorShape {
+  message: string
+  status?: number
+  code?: string
+  name: 'ApiError'
+}
+
+export function createApiError(
+  message: string,
+  status?: number,
+  code?: string
+): Error & ApiErrorShape {
+  const err = new Error(message) as Error & ApiErrorShape
+  err.name = 'ApiError'
+  err.status = status
+  err.code = code
+  return err
+}

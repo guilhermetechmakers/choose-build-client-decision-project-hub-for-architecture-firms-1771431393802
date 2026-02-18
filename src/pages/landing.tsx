@@ -36,13 +36,13 @@ export function Landing() {
           <span className="text-xl font-semibold text-primary">Choose & Build</span>
           <nav className="flex items-center gap-4">
             <Link
-              to="/login"
+              to="/login-/-signup"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               Log in
             </Link>
             <Button asChild variant="primary" size="sm">
-              <Link to="/signup">Get started</Link>
+              <Link to="/login-/-signup">Get started</Link>
             </Button>
           </nav>
         </div>
@@ -63,7 +63,7 @@ export function Landing() {
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Button asChild size="lg" className="min-h-[44px]">
-                <Link to="/signup">
+                <Link to="/login-/-signup">
                   Start free trial
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -113,7 +113,7 @@ export function Landing() {
               Join architecture firms using Choose & Build for audit-ready decisions and faster approvals.
             </p>
             <Button asChild size="lg" className="mt-6 min-h-[44px]">
-              <Link to="/signup">Get started</Link>
+              <Link to="/login-/-signup">Get started</Link>
             </Button>
           </div>
         </section>
